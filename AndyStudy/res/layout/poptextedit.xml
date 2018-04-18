@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" 
+        android:layout_gravity="center"
+        android:background="#8080ff">
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/popinfor"
+            android:layout_below="@+id/popinfor"
+            android:singleLine="true"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/btYes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/popinfor"
+            android:layout_below="@+id/editText1"
+            android:layout_marginTop="28dp"
+            android:text="@string/ok" />
+
+        <Button
+            android:id="@+id/btNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btYes"
+            android:layout_alignBottom="@+id/btYes"
+            android:layout_toRightOf="@+id/btYes"
+            android:layout_marginLeft="40dp"
+            android:text="@string/cancel" />
+
+        <TextView
+            android:id="@+id/popinfor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="30dp"
+            android:textSize="24sp" 
+            android:text="@string/addlesson" />
+    
+</RelativeLayout>

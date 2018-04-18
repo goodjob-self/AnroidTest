@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<resources>  
+  
+    <!-- item背景所需要的颜色值 -->  
+    <color name="bg_selected">#ffffff00</color><!-- 红色 -->  
+    <color name="bg_pressed">#ffFFff00</color><!-- 粉色 -->  
+    <color name="bg_normal">#10ffff00</color><!-- 绿色 -->  
+    <color name="popwin_blue">#8080ff</color><!-- 淡蓝 -->
+    <!-- item中textview所需要的颜色值 -->  
+    <color name="text_normal">#ff000000</color><!-- 黑色 -->  
+    <color name="text_pressed">#ffffffff</color><!-- 白色 -->  
+</resources>  
