@@ -1,6 +1,11 @@
-package laosan.tools.andystudy;
+package org.selfwork.andystudy.ui;
 
 import java.util.List;
+
+import org.selfwork.andystudy.activity.MainActivity;
+import org.selfwork.andystudy.data.ReviewInfoItem;
+
+import laosan.tools.andystudy.R;
 
 import android.R.integer;
 import android.R.raw;
@@ -72,19 +77,7 @@ public class MyAdapter extends BaseAdapter {
 			v.t2 = (TextView) convertView.findViewById(R.id.lessonsTextV);
 			v.t3 = (TextView) convertView.findViewById(R.id.SatusTextV);
 			v.cBox = (CheckBox) convertView.findViewById(R.id.rvcheckBox);
-			//v.layout = (LinearLayout) convertView.findViewById(R.id.line_bg);
-//			v.cBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-//				
-//				@Override
-//				public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
-//					mposition = position;
-//					if(isChecked){   
-//						mPopWin = new MyPopWin(context,(View)buttonView,R.string.confirmcheck,checkYesListener,checkNoListener);
-//	                }else{   
-//	    				list.get(position).setFinishMark(false);
-//	                }   
-//				}
-//			});
+		
 			v.cBox.setOnTouchListener(new OnTouchListener() {
 				
 				@Override
@@ -93,14 +86,14 @@ public class MyAdapter extends BaseAdapter {
 					if(event.getAction()==MotionEvent.ACTION_UP){
 						if(list.get(position).isFinishMark()){
 							Message msgMessage = new Message();
-							msgMessage.what = MainAct.POPWINCHECKMESG;
+							msgMessage.what = MainActivity.POPWINCHECKMESG;
 							msgMessage.arg1 = mposition;
 							msgMessage.arg2 = 0;
 							mHandler.sendMessage(msgMessage);
 							//list.get(mposition).setFinishMark(false);
 							//notifyDataSetChanged();
 						} else {
-							mPopWin = new MyPopWin(context,v,R.string.confirmcheck,checkYesListener,checkNoListener,false);
+							mPopWin = new MyPopWin(context,v,R.string.confirmcheck,checkYesListener,checkNoListener,false,null);
 						}
 					}
 					return true;
@@ -110,7 +103,7 @@ public class MyAdapter extends BaseAdapter {
 				@Override
 				public boolean onLongClick(View v) {
 					mposition = position;
-					mPopWin = new MyPopWin(context,v,R.string.confirmdelete,deleteYesListener,deleteNoListener,false);
+					mPopWin = new MyPopWin(context,v,R.string.confirmdelete,deleteYesListener,deleteNoListener,false,null);
 					return false;
 				}
 			});
@@ -122,12 +115,15 @@ public class MyAdapter extends BaseAdapter {
 		v.t1.setText(list.get(position).getStartDateString());
 		v.t2.setText(list.get(position).getLessonString());
 		v.t3.setText(list.get(position).getLastDateString());
-		if(list.get(position).isFinishMark()){
-			v.cBox.setChecked(true);
-		} else {
-			v.cBox.setChecked(false);
+		if(MainActivity.isbTodayReview()){
+			if(list.get(position).isFinishMark()){
+				v.cBox.setChecked(true);
+			} else {
+				v.cBox.setChecked(false);
+			}
+		}else {
+			v.cBox.setVisibility(View.GONE);
 		}
-		
 		return convertView;
 	}
 
@@ -157,7 +153,7 @@ public class MyAdapter extends BaseAdapter {
 		public boolean onTouch(View v, MotionEvent event) {
 			if(event.getAction()==MotionEvent.ACTION_UP){
 				Message msgMessage = new Message();		
-				msgMessage.what = MainAct.POPWINCHECKMESG;
+				msgMessage.what = MainActivity.POPWINCHECKMESG;
 				msgMessage.arg1 = mposition;
 				msgMessage.arg2 =1;
 				mHandler.sendMessage(msgMessage);
@@ -173,7 +169,7 @@ public class MyAdapter extends BaseAdapter {
 		public boolean onTouch(View v, MotionEvent event) {
 			if(event.getAction()==MotionEvent.ACTION_UP){
 				Message msgMessage = new Message();
-				msgMessage.what = MainAct.POPWINCHECKMESG;
+				msgMessage.what = MainActivity.POPWINCHECKMESG;
 				msgMessage.arg1 = mposition;
 				msgMessage.arg2 = 0;
 				mHandler.sendMessage(msgMessage);
@@ -189,7 +185,7 @@ public class MyAdapter extends BaseAdapter {
 		public boolean onTouch(View v, MotionEvent event) {
 
 			Message msgMessage = new Message();
-			msgMessage.what = MainAct.POPWINDELETEMESG;
+			msgMessage.what = MainActivity.POPWINDELETEMESG;
 			msgMessage.arg1 = mposition;
 			mHandler.sendMessage(msgMessage);
 			mPopWin.dismiss();

@@ -19,7 +19,7 @@
         android:layout_marginLeft="10dp"
         />
 
-    <laosan.tools.utils.MarqueeText
+    <org.selfwork.andystudy.ui.MarqueeText
         android:id="@+id/lessonsTextV"
         android:layout_width="100dp"
         android:gravity="left"

@@ -1,5 +1,6 @@
-package laosan.tools.andystudy;
+package org.selfwork.andystudy.data;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 
 import android.R.integer;
 import android.content.ContentValues;
@@ -26,7 +28,12 @@ public class DBManager {
     private SQLiteDatabase db;  
       
     public DBManager(Context context) {  
-        helper = new DBHelper(context);  
+        try {
+			helper = new DBHelper(context);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
         //因为getWritableDatabase内部调用了mContext.openOrCreateDatabase(mName, 0, mFactory);  
         //所以要确保context已初始化,我们可以把实例化DBManager的步骤放在Activity的onCreate里  
         db = helper.getWritableDatabase();  

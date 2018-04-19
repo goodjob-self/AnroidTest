@@ -1,4 +1,4 @@
-package laosan.tools.utils;
+package org.selfwork.andystudy.ui;
 
 import android.content.Context;
 import android.graphics.Rect;

@@ -1,4 +1,4 @@
-package laosan.tools.andystudy;
+package org.selfwork.andystudy.activity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,6 +7,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.selfwork.andystudy.data.DBManager;
+import org.selfwork.andystudy.data.MemCarve;
+import org.selfwork.andystudy.data.ReviewInfoItem;
+import org.selfwork.andystudy.ui.MyAdapter;
+import org.selfwork.andystudy.ui.MyPopWin;
+
+import laosan.tools.andystudy.R;
 
 import android.R.integer;
 import android.app.Activity;
@@ -27,9 +35,10 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-public class MainAct extends Activity{
+public class MainActivity extends Activity{
 	public static final int POPWINCHECKMESG = 0x1000;
 	public static final int POPWINDELETEMESG = 0x2000;
+	private static boolean bTodayReview = true;
 	DBManager dbmngr;
 	
 	Button todayRevButton;
@@ -48,7 +57,7 @@ public class MainAct extends Activity{
 	MyPopWin addPopupWindow ;
 	Handler mHandler;
 	
-	public MainAct() {
+	public MainActivity() {
 		// TODO Auto-generated constructor stub
 	}
 	void init_data(){
@@ -121,6 +130,7 @@ public class MainAct extends Activity{
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
+				setbTodayReview(false);
 				lessonsListView.setVisibility(View.VISIBLE);
 				lessonsListView.setFocusable(true);
 				lessonsListView.setFocusableInTouchMode(true);
@@ -140,6 +150,7 @@ public class MainAct extends Activity{
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
+				setbTodayReview(true);
 				lessonsListView.setVisibility(View.VISIBLE);
 				if(pickTodayReview()!=0){
 					lessonsListView.setAdapter(mcurAdapter);
@@ -156,6 +167,7 @@ public class MainAct extends Activity{
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
+				setbTodayReview(false);
 				lessonsListView.setVisibility(View.VISIBLE);
 				if(pickYestodayReview()!=0){
 					lessonsListView.setAdapter(mcurAdapter);
@@ -173,7 +185,7 @@ public class MainAct extends Activity{
 			public boolean onTouch(View v, MotionEvent event) {
 				if(event.getAction()==MotionEvent.ACTION_UP){
 					lessonsListView.setVisibility(View.GONE);
-					addPopupWindow = new MyPopWin(MainAct.this,v,R.string.memcarve,yesMemCarveListener, noMemCarveListener,true);
+					addPopupWindow = new MyPopWin(MainActivity.this,v,R.string.memcarve,yesMemCarveListener, noMemCarveListener,true,dbmngr.getMemCarve());
 				}
 				return false;
 			}
@@ -183,6 +195,7 @@ public class MainAct extends Activity{
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				// TODO Auto-generated method stub
+				setbTodayReview(false);
 				lessonsListView.setVisibility(View.VISIBLE);
 				if(pickTomorrowReview() != 0){
 					lessonsListView.setAdapter(mcurAdapter);
@@ -200,7 +213,7 @@ public class MainAct extends Activity{
 			public boolean onTouch(View v, MotionEvent event) {
 				if(event.getAction()==MotionEvent.ACTION_UP){
 					lessonsListView.setVisibility(View.GONE);
-					addPopupWindow = new MyPopWin(MainAct.this,v,R.string.addlesson,yesAddButtonListener, noAddButtonListener,true);
+					addPopupWindow = new MyPopWin(MainActivity.this,v,R.string.addlesson,yesAddButtonListener, noAddButtonListener,true,null);
 				}
 				return false;
 			}
@@ -244,7 +257,7 @@ public class MainAct extends Activity{
 		mactivList.clear();
 		mcurAdapter.notifyDataSetChanged();
 		for(ReviewInfoItem reviewinfo : mALLList){/*today==lastday*/
-			if(Integer.valueOf(today).longValue()==Integer.valueOf(reviewinfo.getLastDateString()).longValue()){
+			if(Integer.valueOf(today).longValue()==Integer.valueOf(reviewinfo.getStartDateString()).longValue()){
 				mactivList.add(reviewinfo);
 			}
 		}
@@ -260,7 +273,7 @@ public class MainAct extends Activity{
 			calendar1.add(Calendar.DATE,-1);
 			String timesString = sdf1.format(calendar1.getTime());
 			Log.e("time", timesString);
-			if(Integer.valueOf(sdf1.format(calendar1.getTime())).longValue()==Integer.valueOf(reviewinfo.getLastDateString()).longValue()){
+			if(Integer.valueOf(sdf1.format(calendar1.getTime())).longValue()==Integer.valueOf(reviewinfo.getStartDateString()).longValue()){
 				mactivList.add(reviewinfo);
 			}
 		}
@@ -363,9 +376,10 @@ public class MainAct extends Activity{
 		
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
-			String lessonString = addPopupWindow.getEditTextInfo();
-			if(!lessonString.equals("")&&lessonString!=null){
-				if(new MemCarve().initMemdays(lessonString)){
+			String crvString = addPopupWindow.getEditTextInfo();
+			if(!crvString.equals("")&&crvString!=null){
+				if(new MemCarve().initMemdays(crvString)){
+					dbmngr.setMemCarve(crvString);
 					ToastInfor(R.string.modifysucess);
 					addPopupWindow.dismiss();
 					addPopupWindow = null;
@@ -410,5 +424,17 @@ public class MainAct extends Activity{
 	}
 	void ToastInfor(int StringId){
 		Toast.makeText(this, getResources().getString(StringId), Toast.LENGTH_SHORT).show();
+	}
+	/**
+	 * @return the bTodayReview
+	 */
+	static public boolean isbTodayReview() {
+		return bTodayReview;
+	}
+	/**
+	 * @param bTodayReview the bTodayReview to set
+	 */
+	static public void setbTodayReview(boolean bTodayReview) {
+		MainActivity.bTodayReview = bTodayReview;
 	}
 }

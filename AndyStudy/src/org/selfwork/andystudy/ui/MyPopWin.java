@@ -1,5 +1,6 @@
-package laosan.tools.andystudy;
+package org.selfwork.andystudy.ui;
 
+import laosan.tools.andystudy.R;
 import android.content.Context;
 import android.os.Message;
 import android.view.LayoutInflater;
@@ -18,7 +19,8 @@ public class MyPopWin {
 	public MyPopWin() {
 		// TODO Auto-generated constructor stub
 	}
-	public MyPopWin(Context context,View v,int titleStringId,OnTouchListener yesListener,OnTouchListener noListener,boolean bEditable){
+
+	public MyPopWin(Context context,View v,int titleStringId,OnTouchListener yesListener,OnTouchListener noListener,boolean bEditable,String hintString){
 		View contentView=LayoutInflater.from(context).inflate(R.layout.poptextedit, null);
 		addPopupWindow = new PopupWindow(contentView,1080,1080,true);
 		Button yesButton = (Button) contentView.findViewById(R.id.btYes);
@@ -27,8 +29,12 @@ public class MyPopWin {
 		titleTextView.setPadding(0, 0, 160, 0);
 		titleTextView.setText(titleStringId);
 		editTextinfo = (EditText) contentView.findViewById(R.id.editText1);
+
 		if(bEditable){
 			editTextinfo.setVisibility(View.VISIBLE);
+			if(hintString!=null){
+				editTextinfo.setHint(hintString);
+			}		
 		} else {
 			editTextinfo.setVisibility(View.GONE);
 		}
@@ -39,7 +45,7 @@ public class MyPopWin {
 		//addPopupWindow.setd
 		addPopupWindow.showAsDropDown(v);
 	}
-	void dismiss(){
+	public void dismiss(){
 		try {
 			addPopupWindow.dismiss();			
 		} catch (Exception e) {
