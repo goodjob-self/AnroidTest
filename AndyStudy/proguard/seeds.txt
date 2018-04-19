@@ -1,6 +1,0 @@
-org.selfwork.andystudy.activity.MainActivity
-org.selfwork.andystudy.activity.MainActivity: MainActivity()
-org.selfwork.andystudy.ui.MarqueeText
-org.selfwork.andystudy.ui.MarqueeText: MarqueeText(android.content.Context)
-org.selfwork.andystudy.ui.MarqueeText: MarqueeText(android.content.Context,android.util.AttributeSet)
-org.selfwork.andystudy.ui.MarqueeText: MarqueeText(android.content.Context,android.util.AttributeSet,int)
