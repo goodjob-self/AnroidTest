@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.os.FileUtils;
 import android.provider.MediaStore.Files;
 import android.provider.Settings.System;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -26,13 +27,17 @@ public class DBHelper extends SQLiteOpenHelper {
         File sdcardPath = Environment.getExternalStorageDirectory();
         File bakedbFile = new File(sdcardPath.getAbsolutePath()+"/"+DATABASE_NAME);
         
-        if(dbfileFile!= null){
+        if(dbfileFile.exists()){
         	FileUtils.copyFile(dbfileFile, bakedbFile);
         }else {
 			try {
-				FileUtils.copyFile(bakedbFile, dbfileFile);
+				if(bakedbFile.exists()){
+					FileUtils.copyFile(bakedbFile, dbfileFile);
+				}else {
+					Log.e("DBhelper","No bakeup DB");
+				}
 			} catch (Exception e) {
-				// TODO: handle exception
+				Log.e("DBhelper","bakeup DB fail");
 			}
 		}
     }  
