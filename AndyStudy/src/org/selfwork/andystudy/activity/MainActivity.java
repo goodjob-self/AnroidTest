@@ -33,6 +33,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity{
@@ -51,6 +52,7 @@ public class MainActivity extends Activity{
 	Button noButton;
 	ListView lessonsListView;
 	EditText addlessonText;
+	TextView markFinishTextView;
 	List <ReviewInfoItem> mALLList;
 	List <ReviewInfoItem> mactivList;
 	MyAdapter mcurAdapter ;
@@ -115,6 +117,7 @@ public class MainActivity extends Activity{
 		tomorrowButton = (Button) findViewById(R.id.btTomorrowRv);
 		submitButton = (Button) findViewById(R.id.btSubmit);
 		lessonsListView  = (ListView) findViewById(R.id.listView1);
+		markFinishTextView = (TextView) findViewById(R.id.rvStatusTxtV);
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +134,7 @@ public class MainActivity extends Activity{
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				setbTodayReview(false);
+				markFinishTextView.setVisibility(View.INVISIBLE);
 				lessonsListView.setVisibility(View.VISIBLE);
 				lessonsListView.setFocusable(true);
 				lessonsListView.setFocusableInTouchMode(true);
@@ -149,8 +153,8 @@ public class MainActivity extends Activity{
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
 				setbTodayReview(true);
+				markFinishTextView.setVisibility(View.VISIBLE);
 				lessonsListView.setVisibility(View.VISIBLE);
 				if(pickTodayReview()!=0){
 					lessonsListView.setAdapter(mcurAdapter);
@@ -166,8 +170,8 @@ public class MainActivity extends Activity{
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
 				setbTodayReview(false);
+				markFinishTextView.setVisibility(View.INVISIBLE);
 				lessonsListView.setVisibility(View.VISIBLE);
 				if(pickYestodayReview()!=0){
 					lessonsListView.setAdapter(mcurAdapter);
@@ -194,8 +198,8 @@ public class MainActivity extends Activity{
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				// TODO Auto-generated method stub
 				setbTodayReview(false);
+				markFinishTextView.setVisibility(View.INVISIBLE);
 				lessonsListView.setVisibility(View.VISIBLE);
 				if(pickTomorrowReview() != 0){
 					lessonsListView.setAdapter(mcurAdapter);

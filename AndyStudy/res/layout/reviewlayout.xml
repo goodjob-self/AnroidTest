@@ -11,7 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/btTodayRv" 
+            android:layout_below="@+id/subTitleLy" 
+            android:layout_marginTop="3dp"
             android:visibility="gone">
         </ListView>
 
@@ -28,7 +29,6 @@
             android:id="@+id/btOther"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/listView1"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/btTomorrowRv"
             android:textSize="17sp"
@@ -38,9 +38,9 @@
             android:id="@+id/btYstdNew"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/listView1"
+            android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/btTodayRv"
-                        android:textSize="17sp"
+            android:textSize="17sp"
             android:text="@string/yesterday_new" />
 
         <Button
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/btYstdNew"
-                        android:textSize="17sp"
+            android:textSize="17sp"
             android:text="@string/tomorrow_review" />
 
         <Button
@@ -67,8 +67,67 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/btTodayNew"
             android:layout_toRightOf="@+id/btTodayNew"
-            android:text="@string/add" 
+            android:textSize="17sp"
+            android:text="@string/addlesson" 
             />
+
+        <RelativeLayout
+            android:id="@+id/subTitleLy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/btTodayRv"
+            android:layout_marginTop="2dp" 
+            android:background="@color/title_blue">
+            <TextView
+            android:id="@+id/startTimeTxtV"
+            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+        	android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/hl_string"
+            android:text="@string/start_date" />
+            
+            <TextView
+            android:id="@+id/contentTxtV"
+            android:layout_width="100dp"
+        	android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/startTimeTxtV"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/hl_string"
+            android:text="@string/lesson_content" />
+                    
+           <TextView
+            android:id="@+id/lastTimeTxtV"
+            android:layout_width="90dp"
+        	android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/contentTxtV"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/hl_string"
+            android:text="@string/last_date" />
+                            
+            <TextView
+            android:id="@+id/rvStatusTxtV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/lastTimeTxtV"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="16sp"
+            android:textColor="@color/hl_string"
+            android:singleLine="true"
+            android:text="@string/finished" />
+                                    
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

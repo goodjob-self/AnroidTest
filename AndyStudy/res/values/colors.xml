@@ -2,10 +2,12 @@
 <resources>  
   
     <!-- item背景所需要的颜色值 -->  
-    <color name="bg_selected">#ffffff00</color><!-- 红色 -->  
-    <color name="bg_pressed">#ffFFff00</color><!-- 粉色 -->  
-    <color name="bg_normal">#10ffff00</color><!-- 绿色 -->  
+    <color name="bg_selected">#ffffff00</color><!-- 淡黄 -->  
+    <color name="bg_pressed">#ffFFff00</color><!-- 淡黄-->  
+    <color name="bg_normal">#10ffff00</color><!-- 淡黄透明 -->  
     <color name="popwin_blue">#8080ff</color><!-- 淡蓝 -->
+    <color name="hl_string">#80ffff00</color><!-- 淡黄半透 --> 
+    <color name="title_blue">#808080ff</color><!-- 淡蓝 半透--> 
     <!-- item中textview所需要的颜色值 -->  
     <color name="text_normal">#ff000000</color><!-- 黑色 -->  
     <color name="text_pressed">#ffffffff</color><!-- 白色 -->  
